@@ -1,5 +1,6 @@
 RSpec.describe "GroupEvents", type: :request do
 
+  # INDEX
   context 'Requesting all events :index' do
     before { get '/group_events' }
 
@@ -27,8 +28,13 @@ RSpec.describe "GroupEvents", type: :request do
         'duration' => be_kind_of(Integer),
         'created_at' => match(date_like),
         'updated_at' => match(date_like),
+        'deleted_at' => nil,
         'description' => event[:description]
       })
+    end
+
+    def date_like
+      %r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}
     end
 
     it 'returns 201' do
@@ -38,10 +44,6 @@ RSpec.describe "GroupEvents", type: :request do
     it 'calculates the duration' do
       expect( json['duration'] ).to eq 5
     end
-  end
-
-  def date_like
-    %r{\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z}
   end
 
   context 'An invalid Event' do
@@ -126,11 +128,15 @@ RSpec.describe "GroupEvents", type: :request do
     before { delete "/group_events/#{event.to_param}" }
 
     it 'returns status code 204' do
-      expect(response).to have_http_status(204)
+      expect( response ).to have_http_status(204)
     end
 
-    it 'deletes event' do
+    it 'deletes the event' do
       expect( GroupEvent.count ).to eq 0
+    end
+
+    it 'is not really deleted' do
+      expect( event.reload.deleted_at ).to be
     end
   end
 end

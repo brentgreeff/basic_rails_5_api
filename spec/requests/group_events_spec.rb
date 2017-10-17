@@ -20,15 +20,15 @@ RSpec.describe "GroupEvents", type: :request do
     it 'should create an event' do
       expect( json ).to match ({
         'id' => be_kind_of(Integer),
-        'name' => 'My Birthday Party',
-        'location' => 'Amirandes Grecotel Exclusive Resort',
+        'name' => event[:name],
+        'location' => event[:location],
         'starting' => '2017-10-17',
         'ending' => '2017-10-22',
         'published' => nil,
         'duration' => be_kind_of(Integer),
         'created_at' => match(date_like),
         'updated_at' => match(date_like),
-        'description' => attributes_for(:group_event)[:description]
+        'description' => event[:description]
       })
     end
 

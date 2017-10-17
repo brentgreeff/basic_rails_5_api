@@ -9,6 +9,10 @@ class GroupEventsController < ApplicationController
     render json: @group_event, status: :created
   end
 
+  def update
+
+  end
+
   private
 
   def group_params

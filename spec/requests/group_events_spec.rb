@@ -5,7 +5,7 @@ RSpec.describe "GroupEvents", type: :request do
   context 'Requesting all events :index' do
     before { get '/group_events' }
 
-    it 'should return 200' do
+    it 'returns 200' do
       expect( response ).to have_http_status(200)
     end
   end
@@ -17,7 +17,7 @@ RSpec.describe "GroupEvents", type: :request do
       attributes_for(:group_event)
     end
 
-    it 'should create an event' do
+    it 'creates an event' do
       expect( json ).to match ({
         'id' => be_kind_of(Integer),
         'name' => event[:name],
@@ -32,11 +32,11 @@ RSpec.describe "GroupEvents", type: :request do
       })
     end
 
-    it 'should return 201' do
+    it 'returns 201' do
       expect( response ).to have_http_status(201)
     end
 
-    it 'should calculate the duration' do
+    it 'calculates the duration' do
       expect( json['duration'] ).to eq 5
     end
   end
@@ -55,13 +55,27 @@ RSpec.describe "GroupEvents", type: :request do
       )
     end
 
-    it 'returns status code 422' do
+    it 'returns 422' do
       expect( response ).to have_http_status(422)
     end
 
     it 'returns a validation failure message' do
       expect( response.body )
         .to match(/Validation failed: Name can't be blank/)
+    end
+  end
+
+  context 'Updating an Event' do
+    let(:event) { create(:group_event) }
+
+    before { put "/group_events/#{event.to_param}", params: params }
+
+    def params
+      {name: 'New Name'}
+    end
+
+    it 'returns 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end

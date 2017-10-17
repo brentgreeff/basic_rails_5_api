@@ -10,7 +10,7 @@ class GroupEvent < ApplicationRecord
   private
 
   def calc_duration
-    self.duration = ending - starting
+    self.duration = (ending - starting) + 1
   end
 
   def has_dates?

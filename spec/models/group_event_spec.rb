@@ -1,5 +1,31 @@
 RSpec.describe GroupEvent, type: :model do
 
+  # @assumption - the start and end date are inclusive.
+  context 'An existing event' do
+    let(:event) do
+      create(:group_event,
+        starting: '2017-10-10', ending: '2017-10-11')
+    end
+
+    context 'updating the ending to blank' do
+      before { event.ending = '' }
+
+      it 'should not calculate the duration' do
+        event.save!
+        expect( event.duration ).to eq 2
+      end
+    end
+
+    context 'updating the starting to blank' do
+      before { event.starting = '' }
+
+      it 'should not calculate the duration' do
+        event.save!
+        expect( event.duration ).to eq 2
+      end
+    end
+  end
+
   # Published
   context 'when the event is published' do
     context 'and has no name' do

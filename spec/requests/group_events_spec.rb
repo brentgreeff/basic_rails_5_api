@@ -42,7 +42,7 @@ RSpec.describe "GroupEvents", type: :request do
     end
 
     it 'calculates the duration' do
-      expect( json['duration'] ).to eq 5
+      expect( json['duration'] ).to eq 6
     end
   end
 
@@ -90,7 +90,7 @@ RSpec.describe "GroupEvents", type: :request do
       end
 
       it 'should update the duration' do
-        expect( event.reload.duration ).to eq 31
+        expect( event.reload.duration ).to eq 32
       end
     end
 

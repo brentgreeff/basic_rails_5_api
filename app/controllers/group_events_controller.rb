@@ -10,7 +10,8 @@ class GroupEventsController < ApplicationController
   end
 
   def update
-
+    @group_event = GroupEvent.find params[:id]
+    @group_event.update( group_params )
   end
 
   private

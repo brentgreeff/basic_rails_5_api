@@ -75,5 +75,9 @@ RSpec.describe "GroupEvents", type: :request do
     it 'returns 204' do
       expect(response).to have_http_status(204)
     end
+
+    it 'updates the item' do
+      expect( event.reload.name ).to eq 'New Name'
+    end
   end
 end

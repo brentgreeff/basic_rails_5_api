@@ -8,6 +8,7 @@ RSpec.describe "GroupEvents", type: :request do
     end
   end
 
+  # CREATE
   context 'Creating an Event' do
     before { post '/group_events', params: event }
 
@@ -63,6 +64,7 @@ RSpec.describe "GroupEvents", type: :request do
     end
   end
 
+  # UPDATE
   context 'Updating an Event' do
     let(:event) { create(:group_event) }
 
@@ -114,6 +116,21 @@ RSpec.describe "GroupEvents", type: :request do
         expect( response.body )
           .to match(/Validation failed: Description can't be blank/)
       end
+    end
+  end
+
+  # DELETE
+  describe 'Deleting an Event' do
+    let(:event) { create(:group_event) }
+
+    before { delete "/group_events/#{event.to_param}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+
+    it 'deletes event' do
+      expect( GroupEvent.count ).to eq 0
     end
   end
 end

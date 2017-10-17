@@ -1,4 +1,5 @@
 class GroupEventsController < ApplicationController
+  before_action :load_event, only: [:update, :destroy]
 
   def index
     head :ok
@@ -10,8 +11,11 @@ class GroupEventsController < ApplicationController
   end
 
   def update
-    @group_event = GroupEvent.find params[:id]
     @group_event.update!( group_params )
+  end
+
+  def destroy
+    @group_event.destroy
   end
 
   private
@@ -21,5 +25,9 @@ class GroupEventsController < ApplicationController
       :name, :description, :location, :published,
       :starting, :ending, :duration
     )
+  end
+
+  def load_event
+    @group_event = GroupEvent.find params[:id]
   end
 end

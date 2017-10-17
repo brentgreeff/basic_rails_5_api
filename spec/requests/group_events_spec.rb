@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "GroupEvents", type: :request do
 
   context 'Requesting all events :index' do

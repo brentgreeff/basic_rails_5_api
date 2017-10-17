@@ -57,7 +57,7 @@ RSpec.describe "GroupEvents", type: :request do
       expect( response ).to have_http_status(422)
     end
 
-    it 'returns a validation failure message' do
+    it 'returns validation failed' do
       expect( response.body )
         .to match(/Validation failed: Name can't be blank/)
     end
@@ -93,6 +93,26 @@ RSpec.describe "GroupEvents", type: :request do
         expect(
           response.body
         ).to match /Couldn't find GroupEvent with 'id'=0/
+      end
+    end
+
+    context 'thats invalid' do
+      before { put "/group_events/#{event.to_param}", params: invalid }
+
+      def invalid
+        attributes_for(:group_event).merge(
+          published: true,
+          description: ''
+        )
+      end
+
+      it 'returns 422' do
+        expect( response ).to have_http_status(422)
+      end
+
+      it 'returns validation failed' do
+        expect( response.body )
+          .to match(/Validation failed: Description can't be blank/)
       end
     end
   end

@@ -66,18 +66,34 @@ RSpec.describe "GroupEvents", type: :request do
   context 'Updating an Event' do
     let(:event) { create(:group_event) }
 
-    before { put "/group_events/#{event.to_param}", params: params }
-
     def params
       {name: 'New Name'}
     end
 
-    it 'returns 204' do
-      expect(response).to have_http_status(204)
+    context 'that exists' do
+      before { put "/group_events/#{event.to_param}", params: params }
+
+      it 'returns 204' do
+        expect( response ).to have_http_status(204)
+      end
+
+      it 'updates the item' do
+        expect( event.reload.name ).to eq 'New Name'
+      end
     end
 
-    it 'updates the item' do
-      expect( event.reload.name ).to eq 'New Name'
+    context 'that does not exist' do
+      before { put "/group_events/0", params: params }
+
+      it 'returns 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns not found' do
+        expect(
+          response.body
+        ).to match /Couldn't find GroupEvent with 'id'=0/
+      end
     end
   end
 end

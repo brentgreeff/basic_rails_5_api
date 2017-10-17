@@ -71,7 +71,11 @@ RSpec.describe "GroupEvents", type: :request do
     let(:event) { create(:group_event) }
 
     def params
-      {name: 'New Name'}
+      {
+        name: 'New Name',
+        starting: '2017-10-18',
+        ending: '2017-11-18'
+      }
     end
 
     context 'that exists' do
@@ -81,8 +85,12 @@ RSpec.describe "GroupEvents", type: :request do
         expect( response ).to have_http_status(204)
       end
 
-      it 'updates the item' do
+      it 'updates the name' do
         expect( event.reload.name ).to eq 'New Name'
+      end
+
+      it 'should update the duration' do
+        expect( event.reload.duration ).to eq 31
       end
     end
 

@@ -1,24 +1,34 @@
-# README
+# Group events
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Please refer to google doc for more information](https://docs.google.com/document/d/11E69YdYwYhDXC-hV2uKd2tQYh_fF6ShIHGLLM3aCZXY/edit?usp=sharing)
 
-Things you may want to cover:
+## Install
 
-* Ruby version
+I am using rvm, but its not required.
 
-* System dependencies
+      bundle install
 
-* Configuration
+      rake db:create
 
-* Database creation
+      rake db:migrate
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Approach
 
-* Deployment instructions
+I only do TDD, - please run `guard`
 
-* ...
+press [enter] to run all tests.
+
+tests should be self documenting.
+
+I have not dealt with many edge cases, since I don't see any point in adding code that has no real world value.
+
+This is just "the simplest thing that works".
+
+## Next steps
+
+* Deploy to staging ( can be heroku ) so it can be tested with a client.
+* Ideally its tested with the real client that is going to use it.
+* Go end-to-end asap, so that we can see the whole picture works.
+* Spec additional tasks and issues.

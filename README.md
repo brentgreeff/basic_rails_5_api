@@ -1,7 +1,5 @@
 # Group events
 
-[Please refer to google doc for more information](https://docs.google.com/document/d/11E69YdYwYhDXC-hV2uKd2tQYh_fF6ShIHGLLM3aCZXY/edit?usp=sharing)
-
 ## Install
 
 I am using rvm, but its not required.

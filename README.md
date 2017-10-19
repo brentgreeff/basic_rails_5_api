@@ -1,5 +1,7 @@
 # Group events
 
+Basic Rails API for creating, updating and deleting Events.
+
 ## Install
 
 I am using rvm, but its not required.

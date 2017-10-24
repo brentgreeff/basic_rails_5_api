@@ -1,4 +1,4 @@
-class GroupEvent < ApplicationRecord
+class Event < ApplicationRecord
 
   acts_as_paranoid
 

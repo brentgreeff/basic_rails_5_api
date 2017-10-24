@@ -1,21 +1,21 @@
-class GroupEventsController < ApplicationController
+class EventsController < ApplicationController
   before_action :load_event, only: [:update, :destroy]
 
   def index
-    render json: GroupEvent.all
+    render json: Event.all
   end
 
   def create
-    @group_event = GroupEvent.create!(group_params)
-    render json: @group_event, status: :created
+    @event = Event.create!(group_params)
+    render json: @event, status: :created
   end
 
   def update
-    @group_event.update!( group_params )
+    @event.update!( group_params )
   end
 
   def destroy
-    @group_event.destroy
+    @event.destroy
   end
 
   private
@@ -28,6 +28,6 @@ class GroupEventsController < ApplicationController
   end
 
   def load_event
-    @group_event = GroupEvent.find params[:id]
+    @event = Event.find params[:id]
   end
 end

@@ -1,9 +1,9 @@
-RSpec.describe GroupEvent, type: :model do
+RSpec.describe Event, type: :model do
 
   # @assumption - the start and end date are inclusive.
   context 'An existing event' do
     let(:event) do
-      create(:group_event,
+      create(:event,
         starting: '2017-10-10', ending: '2017-10-11')
     end
 
@@ -70,7 +70,7 @@ RSpec.describe GroupEvent, type: :model do
 
     def with_no(field)
       params = {published: true}
-      build :group_event, params.merge(field => '')
+      build :event, params.merge(field => '')
     end
   end
 
@@ -118,7 +118,7 @@ RSpec.describe GroupEvent, type: :model do
 
     def with_no(field)
       params = {published: false}
-      build :group_event, params.merge(field => '')
+      build :event, params.merge(field => '')
     end
   end
 end

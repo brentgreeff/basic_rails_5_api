@@ -1,11 +1,11 @@
-RSpec.describe "GroupEvents", type: :request do
+RSpec.describe "Events", type: :request do
 
   # INDEX
   context 'with an event' do
-    let!(:event) { create(:group_event) }
+    let!(:event) { create(:event) }
 
     context 'Requesting all events :index' do
-      before { get '/group_events' }
+      before { get '/events' }
 
       it 'returns 200' do
         expect( response ).to have_http_status(200)
@@ -21,10 +21,10 @@ RSpec.describe "GroupEvents", type: :request do
 
   # CREATE
   context 'Creating an Event' do
-    before { post '/group_events', params: event }
+    before { post '/events', params: event }
 
     def event
-      attributes_for(:group_event)
+      attributes_for(:event)
     end
 
     it 'creates an event' do
@@ -57,10 +57,10 @@ RSpec.describe "GroupEvents", type: :request do
   end
 
   context 'An invalid Event' do
-    before { post '/group_events', params: invalid }
+    before { post '/events', params: invalid }
 
     def invalid
-      attributes_for(:group_event).merge(
+      attributes_for(:event).merge(
         published: true,
         name: ''
       )
@@ -78,7 +78,7 @@ RSpec.describe "GroupEvents", type: :request do
 
   # UPDATE
   context 'Updating an Event' do
-    let(:event) { create(:group_event) }
+    let(:event) { create(:event) }
 
     def params
       {
@@ -89,7 +89,7 @@ RSpec.describe "GroupEvents", type: :request do
     end
 
     context 'that exists' do
-      before { put "/group_events/#{event.to_param}", params: params }
+      before { put "/events/#{event.to_param}", params: params }
 
       it 'returns 204' do
         expect( response ).to have_http_status(204)
@@ -105,7 +105,7 @@ RSpec.describe "GroupEvents", type: :request do
     end
 
     context 'that does not exist' do
-      before { put "/group_events/0", params: params }
+      before { put "/events/0", params: params }
 
       it 'returns 404' do
         expect(response).to have_http_status(404)
@@ -114,15 +114,15 @@ RSpec.describe "GroupEvents", type: :request do
       it 'returns not found' do
         expect(
           response.body
-        ).to match /Couldn't find GroupEvent with 'id'=0/
+        ).to match /Couldn't find Event with 'id'=0/
       end
     end
 
     context 'thats invalid' do
-      before { put "/group_events/#{event.to_param}", params: invalid }
+      before { put "/events/#{event.to_param}", params: invalid }
 
       def invalid
-        attributes_for(:group_event).merge(
+        attributes_for(:event).merge(
           published: true,
           description: ''
         )
@@ -141,16 +141,16 @@ RSpec.describe "GroupEvents", type: :request do
 
   # DELETE
   describe 'Deleting an Event' do
-    let(:event) { create(:group_event) }
+    let(:event) { create(:event) }
 
-    before { delete "/group_events/#{event.to_param}" }
+    before { delete "/events/#{event.to_param}" }
 
     it 'returns status code 204' do
       expect( response ).to have_http_status(204)
     end
 
     it 'deletes the event' do
-      expect( GroupEvent.count ).to eq 0
+      expect( Event.count ).to eq 0
     end
 
     it 'is not really deleted' do

@@ -1,11 +1,21 @@
 RSpec.describe "GroupEvents", type: :request do
 
   # INDEX
-  context 'Requesting all events :index' do
-    before { get '/group_events' }
+  context 'with an event' do
+    let!(:event) { create(:group_event) }
 
-    it 'returns 200' do
-      expect( response ).to have_http_status(200)
+    context 'Requesting all events :index' do
+      before { get '/group_events' }
+
+      it 'returns 200' do
+        expect( response ).to have_http_status(200)
+      end
+
+      it 'should return the events' do
+        expect( json ).to be_kind_of(Array)
+        expect( json.first['name'] ).to eq 'My Birthday Party'
+        expect( json.first['id'] ).to eq event.id
+      end
     end
   end
 

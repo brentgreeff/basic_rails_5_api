@@ -2,7 +2,7 @@ class GroupEventsController < ApplicationController
   before_action :load_event, only: [:update, :destroy]
 
   def index
-    head :ok
+    render json: GroupEvent.all
   end
 
   def create

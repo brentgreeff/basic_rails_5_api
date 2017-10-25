@@ -167,6 +167,23 @@ RSpec.describe "Events", type: :request do
           .to match(/Validation failed: Description can't be blank/)
       end
     end
+
+    context 'with a new group name' do
+      before { put "/events/#{event.to_param}", params: {event: g_name} }
+
+      def g_name
+        attributes_for(:event).merge(
+          group_attributes: {
+            id: event.group.id,
+            name: 'New name'
+          }
+        )
+      end
+
+      it 'has new group name' do
+        expect( event.reload.group.name ).to eq 'New name'
+      end
+    end
   end
 
   # DELETE

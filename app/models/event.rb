@@ -2,6 +2,9 @@ class Event < ApplicationRecord
 
   acts_as_paranoid
 
+  belongs_to :group
+  accepts_nested_attributes_for :group
+
   before_validation :calc_duration, if: :has_dates?
 
   validates :name, :location, :starting, :ending, :description,

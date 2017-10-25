@@ -21,9 +21,9 @@ class EventsController < ApplicationController
   private
 
   def group_params
-    params.permit(
+    params.require(:event).permit(
       :name, :description, :location, :published,
-      :starting, :ending, :duration
+      :starting, :ending, :duration, group_attributes: [:name]
     )
   end
 

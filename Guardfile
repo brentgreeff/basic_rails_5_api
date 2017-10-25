@@ -45,7 +45,11 @@ guard :rspec, cmd: "bundle exec rspec" do
   dsl.watch_spec_files_for(rails.app_files)
 
   watch(%r{^app\/controllers\/(.+)_controller\.rb}) do |m|
-    "spec/requests/#{m[1]}_spec.rb"
+    "spec/requests/#{m[1]}_request_spec.rb"
+  end
+
+  watch(%r{^app\/serializers\/(.+)_serializer\.rb}) do |m|
+    "spec/requests/#{m[1]}s_request_spec.rb"
   end
 
   watch(rails.controllers) do |m|

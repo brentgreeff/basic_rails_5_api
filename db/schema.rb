@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024220136) do
+ActiveRecord::Schema.define(version: 20171024231404) do
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -23,7 +23,16 @@ ActiveRecord::Schema.define(version: 20171024220136) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "group_id"
     t.index ["deleted_at"], name: "index_events_on_deleted_at"
+    t.index ["group_id"], name: "index_events_on_group_id"
   end
 
+  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "events", "groups"
 end

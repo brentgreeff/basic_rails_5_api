@@ -1,3 +1,4 @@
+require 'pry'
 RSpec.describe "Events", type: :request do
 
   # INDEX
@@ -16,16 +17,39 @@ RSpec.describe "Events", type: :request do
         expect( json.first['name'] ).to eq 'My Birthday Party'
         expect( json.first['id'] ).to eq event.id
       end
+
+      it 'should return the group info' do
+        expect( json.first['group'] ).to be_kind_of Hash
+        expect( json.first['group']['name'] ).to eq 'FB Sucks'
+      end
     end
   end
 
   # CREATE
-  context 'Creating an Event' do
-    before { post '/events', params: event }
+  it "saves the Event" do
+    expect {
+      post '/events', params: {event: event}
+    }.to change(Event, :count).by(1)
+  end
 
-    def event
-      attributes_for(:event)
-    end
+  it "saves a group" do
+    expect {
+      post '/events', params: {event: event}
+    }.to change(Group, :count).by(1)
+  end
+
+  def event
+    # binding.pry
+    attributes_for(:event).merge({
+      group_attributes: {
+        name: 'Only Cool Dudes'
+      }
+    })
+  end
+
+  context 'Creating an Event' do
+    before { post '/events', params: {event: event} }
+
 
     it 'creates an event' do
       expect( json ).to match ({
@@ -39,7 +63,10 @@ RSpec.describe "Events", type: :request do
         'created_at' => match(date_like),
         'updated_at' => match(date_like),
         'deleted_at' => nil,
-        'description' => event[:description]
+        'description' => event[:description],
+        'group' => {
+          'name' => 'Only Cool Dudes'
+        }
       })
     end
 
@@ -57,12 +84,15 @@ RSpec.describe "Events", type: :request do
   end
 
   context 'An invalid Event' do
-    before { post '/events', params: invalid }
+    before { post '/events', params: {event: invalid} }
 
     def invalid
       attributes_for(:event).merge(
         published: true,
-        name: ''
+        name: '',
+        group_attributes: {
+          name: 'Only Cool Dudes'
+        }
       )
     end
 
@@ -89,7 +119,7 @@ RSpec.describe "Events", type: :request do
     end
 
     context 'that exists' do
-      before { put "/events/#{event.to_param}", params: params }
+      before { put "/events/#{event.to_param}", params: {event: params} }
 
       it 'returns 204' do
         expect( response ).to have_http_status(204)
@@ -119,7 +149,7 @@ RSpec.describe "Events", type: :request do
     end
 
     context 'thats invalid' do
-      before { put "/events/#{event.to_param}", params: invalid }
+      before { put "/events/#{event.to_param}", params: {event: invalid} }
 
       def invalid
         attributes_for(:event).merge(

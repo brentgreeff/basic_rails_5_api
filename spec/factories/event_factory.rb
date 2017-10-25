@@ -5,6 +5,7 @@ FactoryGirl.define do
     location 'Amirandes Grecotel Exclusive Resort'
     starting '2017-10-17'
     ending '2017-10-22'
+    group
     description <<-DESC
 # Pool Party for my Birthday
 

@@ -1,3 +1,4 @@
+require 'pry'
 class EventsController < ApplicationController
   before_action :load_event, only: [:update, :destroy]
 
@@ -23,7 +24,10 @@ class EventsController < ApplicationController
   def group_params
     params.require(:event).permit(
       :name, :description, :location, :published,
-      :starting, :ending, :duration, group_attributes: [:name]
+      :starting, :ending, :duration, group_attributes: [
+        :name,
+        group_users_attributes: [:user_id]
+      ]
     )
   end
 

@@ -10,7 +10,7 @@ gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
 
 gem 'paranoia'
-
+gem 'acts_as_human'
 gem 'active_model_serializers'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

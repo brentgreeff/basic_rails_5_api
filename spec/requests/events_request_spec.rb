@@ -38,18 +38,30 @@ RSpec.describe "Events", type: :request do
     }.to change(Group, :count).by(1)
   end
 
+  it 'should add users as members of the group' do
+    expect {
+      post '/events', params: {event: event}
+    }.to change(GroupUser, :count).by(2)
+  end
+
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
+
   def event
     # binding.pry
     attributes_for(:event).merge({
       group_attributes: {
-        name: 'Only Cool Dudes'
+        name: 'Only Cool Dudes',
+        group_users_attributes: [
+          {user_id: user1.to_param},
+          {user_id: user2.to_param},
+        ]
       }
     })
   end
 
   context 'Creating an Event' do
     before { post '/events', params: {event: event} }
-
 
     it 'creates an event' do
       expect( json ).to match ({

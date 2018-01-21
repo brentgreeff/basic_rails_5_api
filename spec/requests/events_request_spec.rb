@@ -1,4 +1,4 @@
-RSpec.describe "Events", type: :request do
+RSpec.describe "Events" do
 
   # INDEX
   context 'with an event' do

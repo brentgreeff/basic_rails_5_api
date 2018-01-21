@@ -1,4 +1,3 @@
-require 'pry'
 class EventsController < ApplicationController
   before_action :load_event, only: [:update, :destroy]
 

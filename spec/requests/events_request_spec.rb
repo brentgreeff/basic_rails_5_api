@@ -1,4 +1,3 @@
-require 'pry'
 RSpec.describe "Events", type: :request do
 
   # INDEX
@@ -48,7 +47,6 @@ RSpec.describe "Events", type: :request do
   let(:user2) { create(:user) }
 
   def event
-    # binding.pry
     attributes_for(:event).merge({
       group_attributes: {
         name: 'Only Cool Dudes',

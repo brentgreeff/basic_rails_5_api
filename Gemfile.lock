@@ -45,6 +45,7 @@ GEM
       tzinfo (~> 1.1)
     acts_as_human (3.0.2)
     arel (8.0.0)
+    awesome_print (1.8.0)
     builder (3.2.3)
     byebug (9.1.0)
     case_transform (0.2)
@@ -191,6 +192,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts_as_human
+  awesome_print
   byebug
   factory_girl_rails
   guard-rspec
@@ -205,4 +207,4 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.1

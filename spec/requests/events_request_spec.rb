@@ -129,7 +129,7 @@ RSpec.describe "Events" do
     end
 
     context 'that exists' do
-      before { put "/events/#{event.to_param}", params: {event: params} }
+      before { patch "/events/#{event.to_param}", params: {event: params} }
 
       it 'returns 204' do
         expect( response ).to have_http_status(204)
@@ -145,7 +145,7 @@ RSpec.describe "Events" do
     end
 
     context 'that does not exist' do
-      before { put "/events/0", params: params }
+      before { patch "/events/0", params: params }
 
       it 'returns 404' do
         expect(response).to have_http_status(404)
@@ -159,7 +159,7 @@ RSpec.describe "Events" do
     end
 
     context 'thats invalid' do
-      before { put "/events/#{event.to_param}", params: {event: invalid} }
+      before { patch "/events/#{event.to_param}", params: {event: invalid} }
 
       def invalid
         attributes_for(:event).merge(
@@ -179,7 +179,7 @@ RSpec.describe "Events" do
     end
 
     context 'with a new group name' do
-      before { put "/events/#{event.to_param}", params: {event: g_name} }
+      before { patch "/events/#{event.to_param}", params: {event: g_name} }
 
       def g_name
         attributes_for(:event).merge(

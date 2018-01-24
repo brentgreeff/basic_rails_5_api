@@ -2,6 +2,8 @@ class Event < ApplicationRecord
 
   acts_as_paranoid
 
+  belongs_to :organiser, class_name: 'User'
+
   belongs_to :group
   accepts_nested_attributes_for :group
 

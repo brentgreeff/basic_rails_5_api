@@ -1,6 +1,7 @@
 FactoryGirl.define do
 
   factory :event do
+    organiser
     name 'My Birthday Party'
     location 'Amirandes Grecotel Exclusive Resort'
     starting '2017-10-17'

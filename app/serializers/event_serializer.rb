@@ -4,4 +4,5 @@ class EventSerializer < ActiveModel::Serializer
     :description
 
   belongs_to :group
+  belongs_to :organiser
 end

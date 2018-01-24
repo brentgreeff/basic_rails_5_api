@@ -12,6 +12,8 @@ gem 'puma', '~> 3.7'
 gem 'paranoia'
 gem 'acts_as_human'
 gem 'active_model_serializers'
+gem 'bcrypt'
+gem 'jwt'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'

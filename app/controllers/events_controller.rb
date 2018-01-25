@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :load_current_user
-  before_action :load_event, only: [:update, :destroy]
+  before_action :load_event, only: :update
+  before_action :auth_required, only: :update
 
   def index
     render json: current_user.events
@@ -16,7 +17,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
+    current_user.events.find( params[:id] ).destroy
   end
 
   private
@@ -32,6 +33,6 @@ class EventsController < ApplicationController
   end
 
   def load_event
-    @event = current_user.events.find params[:id]
+    @event = Event.find params[:id]
   end
 end

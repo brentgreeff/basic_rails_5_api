@@ -7,6 +7,13 @@ class Event < ApplicationRecord
   belongs_to :group
   accepts_nested_attributes_for :group
 
+  delegate :guests, to: :group
+
+  allows :update,
+    if: -> (event, user) do
+      event.organiser == user || event.guests.include?( user )
+    end
+
   before_validation :calc_duration, if: :has_dates?
 
   validates :name, :location, :starting, :ending, :description,

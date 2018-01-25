@@ -16,5 +16,10 @@ FactoryGirl.define do
       email 'someone@example.com'
       password 'strange'
     end
+
+    factory :guest do
+      full_name 'Invited Person'
+      email { "invited#{User.count}@example.com" }
+    end
   end
 end

@@ -61,6 +61,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
+    fat_model_auth (4.0.0)
     ffi (1.9.18)
     formatador (0.2.5)
     globalid (0.4.0)
@@ -198,6 +199,7 @@ DEPENDENCIES
   bcrypt
   byebug
   factory_girl_rails
+  fat_model_auth
   guard-rspec
   jwt
   listen (>= 3.0.5, < 3.2)

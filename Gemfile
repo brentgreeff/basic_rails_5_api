@@ -11,6 +11,7 @@ gem 'puma', '~> 3.7'
 
 gem 'paranoia'
 gem 'acts_as_human'
+gem 'fat_model_auth'#, path: '/Users/hit/projects/fat_model_auth'
 gem 'active_model_serializers'
 gem 'bcrypt'
 gem 'jwt'
@@ -19,8 +20,6 @@ gem 'jwt'
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

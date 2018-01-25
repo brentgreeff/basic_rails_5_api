@@ -76,8 +76,8 @@ RSpec.describe "Events" do
     }.to change(GroupUser, :count).by(2)
   end
 
-  let(:guest1) { create(:user) }
-  let(:guest2) { create(:user) }
+  let(:guest1) { create(:guest) }
+  let(:guest2) { create(:guest) }
 
   def event
     attributes_for(:event).merge({
@@ -222,10 +222,21 @@ RSpec.describe "Events" do
     end
 
     context 'by a different user' do
-      before { patch "/events/#{event.to_param}", params: {event: ev}, headers: auth(create(:someone_else)) }
+      before { patch "/events/#{event.to_param}", params: {event: ev}, headers: auth(someone_else) }
 
       it 'is not found' do
         expect( response ).to have_http_status(404)
+      end
+    end
+
+    context 'by a guest' do
+      before { event.guests << guest1 }
+
+      before { patch "/events/#{event.to_param}", params: {event: ev}, headers: auth(guest1) }
+
+      it 'is allowed' do
+        expect( response ).to have_http_status(204)
+        expect( event.reload.name ).to eq 'New Name'
       end
     end
 
@@ -246,6 +257,8 @@ RSpec.describe "Events" do
       end
     end
   end
+
+  let(:someone_else) { create(:someone_else) }
 
   # DELETE
   describe '#Destroying an Event' do
@@ -271,6 +284,16 @@ RSpec.describe "Events" do
 
     context 'by a different user' do
       before { delete "/events/#{event.to_param}", headers: auth(create(:someone_else)) }
+
+      it 'is not found' do
+        expect( response ).to have_http_status(404)
+      end
+    end
+
+    context 'by a guest' do
+      before { event.guests << guest1 }
+
+      before { delete "/events/#{event.to_param}", headers: auth(guest1) }
 
       it 'is not found' do
         expect( response ).to have_http_status(404)

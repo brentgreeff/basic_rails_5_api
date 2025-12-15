@@ -1,4 +1,4 @@
-> [!CAUTION]
+> [\!CAUTION]
 > This repository is deprecated and no longer maintained.
 
 [![Build Status](https://semaphoreci.com/api/v1/brentgreeff/basic_rails_5_api/branches/master/badge.svg)](https://semaphoreci.com/brentgreeff/basic_rails_5_api)
